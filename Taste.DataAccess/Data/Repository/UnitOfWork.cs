@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Taste.DataAccess.Data.Repository
 {
-    class UnitOfWork
+    public class UnitOfWork
     {
     }
 }
