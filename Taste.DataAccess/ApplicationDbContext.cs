@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Taste.Data
+namespace Taste.DataAccess
 {
     public class ApplicationDbContext : IdentityDbContext
     {
