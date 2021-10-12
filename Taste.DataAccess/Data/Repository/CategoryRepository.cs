@@ -13,7 +13,7 @@ namespace Taste.DataAccess.Data.Repository
     {
         private readonly ApplicationDbContext _db;
 
-        public CategoryRepository(ApplicationDbContext db)
+        public CategoryRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
         }
