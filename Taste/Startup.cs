@@ -40,6 +40,13 @@ namespace Taste
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddSingleton<IEmailSender, EmailSender>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(10);
+                options.Cookie.HttpOnly = true;
+                //cookie kabul edilsin mi ? 
+                options.Cookie.IsEssential = true;
+            });
             services.ConfigureApplicationCookie(options =>
 
             {
@@ -73,7 +80,7 @@ namespace Taste
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
 
             app.UseAuthentication();
             app.UseAuthorization();
