@@ -9,8 +9,7 @@ namespace Taste.DataAccess
 {
     public class ApplicationDbContext : IdentityDbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
         public DbSet<Category> Category { get; set; }
@@ -18,5 +17,8 @@ namespace Taste.DataAccess
         public DbSet<MenuItem> MenuItem { get; set; }
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
         public DbSet<ShoppingCart> ShoppingCart { get; set; }
+        public DbSet<OrderHeader> OrderHeader { get; set; }
+        public DbSet<OrderDetails> OrderDetail { get; set; }
+
     }
 }
