@@ -9,7 +9,7 @@
 
     @if (Model.OrderDetailsCartVM.listCart.Count > 0)
     {
-        <input asp-for="@Model.OrderDetailsCartVM.listCart[0].ApplicationUserId" hidden/>
+        <input asp-for="@Model.OrderDetailsCartVM.listCart[0].ApplicationUserId" hidden />
         <div class="backgroundWhiteBorder">
             <div class="container">
                 <div class="card">
@@ -49,7 +49,7 @@
                                     </div>
                                     <div class="row my-1">
                                         <div class="col-3">
-                                            <label>PickUp Date</label>
+                                            <label>Pickup Date</label>
                                         </div>
                                         <div class="col-9">
                                             <input id="datepicker" value="" asp-for="@Model.OrderDetailsCartVM.OrderHeader.PickUpDate" type="text" class="form-control" />
@@ -60,7 +60,7 @@
                                             <label>Pickup Time</label>
                                         </div>
                                         <div class="col-9">
-                                            <input id="timePicker" value="" asp-for="@Model.OrderDetailsCartVM.OrderHeader.PickUpTime" type="text" class="form-control" />
+                                            <input id="timepicker" value="" asp-for="@Model.OrderDetailsCartVM.OrderHeader.PickUpTime" type="text" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="row my-1">
@@ -68,7 +68,7 @@
                                             <label>Additional Instructions: </label>
                                         </div>
                                         <div class="col-9">
-                                            <textarea asp-for="@Model.OrderDetailsCartVM.OrderHeader.Comments" style="height:100px" class="form-control"></textarea>
+                                            <textarea asp-for="@Model.OrderDetailsCartVM.OrderHeader.Comments" style="height:100px;" class="form-control"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -97,7 +97,7 @@
                     <div class="card-footer">
                         <div class="row">
                             <div class="col-12 col-md-4 offset-md-8">
-                                <button type="submit" value="Place Order" class="btn btn-success form-control">Place Order</button>
+                                <button type="submit" id="btnPlaceOrder" onclick="return validateInput()" value="Place Order" class="btn btn-success form-control">Place Order</button>
                             </div>
                         </div>
                     </div>
@@ -105,6 +105,36 @@
             </div>
         </div>
     }
-
-
 </form>
+
+@section Scripts{
+    <script>
+        $(function () {
+            $("#datepicker").datepicker({ minDate: 1, maxDate: "+1W" });
+            $("#timepicker").timepicker({ 'minTime': '11:00 AM', 'maxTime': '9:00 PM', step: '30' });
+        });
+        function validateInput() {
+            var time = document.getElementById("timepicker").value;
+            var dt = document.getElementById("datepicker").value;
+            var name = document.getElementById("txtName").value;
+            var phone = document.getElementById("txtPhone").value;
+            if (dt.toString() == '') {
+                swal("Error", "Please select pickup Date", "error");
+                return false;
+            }
+            if (time.toString() == '') {
+                swal("Error", "Please select pickup Time", "error");
+                return false;
+            }
+            if (name.toString() == '') {
+                swal("Error", "Please enter picup Name", "error");
+                return false;
+            }
+            if (phone.toString() == '') {
+                swal("Error", "Please enter Phone Number", "error");
+                return false;
+            }
+            return true;
+        }
+    </script>
+}
