@@ -10,6 +10,7 @@ using Taste.Models.ViewModels;
 using Taste.Models;
 using Taste.Utility;
 using Microsoft.AspNetCore.Http;
+using Stripe;
 
 namespace Taste.Pages.Customer.Cart
 {
@@ -86,6 +87,35 @@ namespace Taste.Pages.Customer.Cart
             HttpContext.Session.SetInt32(SD.ShoppingCart,0);
             _unitOfWork.Save();
 
+            if (stripeToken != null)
+            {
+                var options = new ChargeCreateOptions
+                {
+                    Amount = Convert.ToInt32(OrderDetailsCartVM.OrderHeader.OrderTotal * 1000),
+                    Currency = "usd",
+                    Description = "Order ID : " + OrderDetailsCartVM.OrderHeader.Id,
+                    Source = stripeToken
+                };
+                var service = new ChargeService();
+                Charge charge = service.Create(options);
+                OrderDetailsCartVM.OrderHeader.TransactionId = charge.Id;
+                if (charge.Status.ToLower() == "succeeded")
+                {
+                    OrderDetailsCartVM.OrderHeader.PaymentStatus = SD.PaymentStatusApproved;
+                    OrderDetailsCartVM.OrderHeader.Status = SD.StatusSubmmitted;
+                }
+                else
+                {
+                    OrderDetailsCartVM.OrderHeader.Status = SD.PaymentStatusRejected;
+
+                }
+            }
+            else
+            {
+                OrderDetailsCartVM.OrderHeader.PaymentStatus = SD.PaymentStatusRejected;
+            }
+            _unitOfWork.Save();
+            return RedirectToPage("/Customer/Cart/Order/Confirmation", new { id = OrderDetailsCartVM.OrderHeader.Id });
         }
     }
 }
