@@ -48,5 +48,11 @@ namespace Taste.Pages.Customer.Cart
             OrderDetailsCartVM.OrderHeader.PhoneNumber = applicationUser.PhoneNumber;
             return Page();
         }
+        public IActionResult OnPost(string stripeToken)
+        {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            OrderDetailsCartVM.listCart = _unitOfWork.ShoppingCart.GetAll(x => x.ApplicationUserId == claim.Value).ToList();
+        }
     }
 }
