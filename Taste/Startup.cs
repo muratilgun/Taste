@@ -62,7 +62,11 @@ namespace Taste
             services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
             services.AddMvc(options => options.EnableEndpointRouting =false).SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
-            
+            services.AddAuthentication().AddFacebook(facebookOptions =>
+            {
+                facebookOptions.AppId = "307407020855299";
+                facebookOptions.AppSecret = "1f7c2ea38707f1e5503ea6fc6e9643ae";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
