@@ -10,6 +10,7 @@ namespace Taste.Models
     {
         [Key]
         public int Id { get; set; }
+
         [Required]
         public string UserId { get; set; }
 
@@ -18,26 +19,30 @@ namespace Taste.Models
 
         [Required]
         public DateTime OrderDate { get; set; }
-        [Required] 
+
+        [Required]
         [DisplayFormat(DataFormatString = "{0:C}")]
         [Display(Name = "Order Total")]
         public double OrderTotal { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:C}")]
+        [Required]
         [Display(Name = "Pick Up Time")]
         public DateTime PickUpTime { get; set; }
 
-        [Required] 
+        [Required]
         [NotMapped]
         public DateTime PickUpDate { get; set; }
 
         public string Status { get; set; }
+
         public string PaymentStatus { get; set; }
         public string Comments { get; set; }
+
         [Display(Name = "Pickup Name")]
-        public string  PickupName { get; set; }
+        public string PickupName { get; set; }
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
         public string TransactionId { get; set; }
+
     }
 }

@@ -21,7 +21,7 @@ namespace Taste.Pages.Admin.Order
         public OrderDetailsViewModel OrderDetailsVM { get; set; }
         public void OnGet(int id)
         {
-            OrderDetailsViewModel = new OrderDetailsViewModel()
+            OrderDetailsVM = new OrderDetailsViewModel()
             {
                 OrderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(m => m.Id == id),
                 OrderDetails = _unitOfWork.OrderDetail.GetAll(m => m.OrderId == id).ToList()

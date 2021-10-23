@@ -1,13 +1,13 @@
 ﻿var dataTable;
 
 $(document).ready(function () {
-    var url = window.localStorage.search;
+    var url = window.location.search;
     if (url.includes("cancelled")) {
-        loadList(cancelled)
+        loadList("cancelled");
     }
     else {
         if (url.includes("completed")) {
-            loadList(completed)
+            loadList("completed");
         }
         else {
             loadList("");
@@ -28,7 +28,7 @@ function loadList(param) {
             { "data": "orderHeader.applicationUser.email", "width": "20%" },
             { "data": "orderHeader.orderTotal", "width": "20%" },
             {
-                "data": "id",
+                "data": "orderHeader.id",
                 "render": function (data) {
                     return ` <div class="text-center">
                                 <a href="/Admin/Order/OrderDetail?id=${data}" class="btn btn-success text-white" style="cussor:pointer; width:100px;">
