@@ -22,7 +22,7 @@ namespace Taste.Pages.Customer.Cart
         {
             _unitOfWork = unitOfWork;
         }
-
+        [BindProperty]
         public OrderDetailsCart OrderDetailsCartVM { get; set; }
         public IActionResult OnGet()
         {
@@ -115,7 +115,7 @@ namespace Taste.Pages.Customer.Cart
                 OrderDetailsCartVM.OrderHeader.PaymentStatus = SD.PaymentStatusRejected;
             }
             _unitOfWork.Save();
-            return RedirectToPage("/Customer/Cart/Order/Confirmation", new { id = OrderDetailsCartVM.OrderHeader.Id });
+            return RedirectToPage("/Customer/Cart/OrderConfirmation", new { id = OrderDetailsCartVM.OrderHeader.Id });
         }
     }
 }
