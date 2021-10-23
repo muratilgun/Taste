@@ -1,7 +1,6 @@
 ﻿@page
 @model Taste.Pages.Admin.Order.OrderListModel
-@{
-}
+@{ ViewData["Title"] = "OrderList"; }
 
 <div class="border backgroundWhite container">
     <div class="row">
@@ -11,13 +10,13 @@
         <div class="col-6 text-right">
             <ul class="list-group list-group-horizontal-sm">
                 <a style="text-decoration:none;">
-                <li class="list-group-item"> Cancelled</li>
+                <li class="list-group-item"> Cancelled </li>
                 </a>
                 <a style="text-decoration:none;">
-                <li class="list-group-item"> Completed</li>
+                <li class="list-group-item"> Completed </li>
                 </a>
                 <a style="text-decoration:none;">
-                <li class="list-group-item"> Inprocess</li>
+                <li class="list-group-item"> Inprocess </li>
                 </a>
             </ul>
         </div>
@@ -33,10 +32,9 @@
                 <th></th>
             </tr>
         </thead>
-
     </table>
 </div>
 
-@section Scripts {
+@section Scripts{
     <script src="~/js/orderList.js"></script>
 }

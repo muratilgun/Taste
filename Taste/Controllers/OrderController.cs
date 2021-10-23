@@ -14,30 +14,37 @@ namespace Taste.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrderController : ControllerBase
+    public class OrderController : Controller
     {
+
         private readonly IUnitOfWork _unitOfWork;
 
         public OrderController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
+
         [HttpGet]
         public IActionResult Get()
         {
             List<OrderDetailsViewModel> orderListVM = new List<OrderDetailsViewModel>();
-            IEnumerable<OrderHeader> orderHeaderList;
+
+            IEnumerable<OrderHeader> OrderHeaderList;
+
             if (User.IsInRole(SD.CustomerRole))
             {
+                //retrieve all orders for that customer
                 var claimsIdentity = (ClaimsIdentity)User.Identity;
                 var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-                orderHeaderList = _unitOfWork.OrderHeader.GetAll(u => u.UserId == claim.Value, null, "ApplicationUser");
+                OrderHeaderList = _unitOfWork.OrderHeader.GetAll(u => u.UserId == claim.Value, null, "ApplicationUser");
             }
             else
             {
-                orderHeaderList = _unitOfWork.OrderHeader.GetAll(null, null, "ApplicationUser");
+                OrderHeaderList = _unitOfWork.OrderHeader.GetAll(null, null, "ApplicationUser");
             }
-            foreach (OrderHeader item in orderHeaderList)
+
+
+            foreach (OrderHeader item in OrderHeaderList)
             {
                 OrderDetailsViewModel individual = new OrderDetailsViewModel
                 {
@@ -47,7 +54,8 @@ namespace Taste.Controllers
                 orderListVM.Add(individual);
             }
 
-            return null;
+            return Json(new { data = orderListVM });
         }
+
     }
 }
