@@ -112,14 +112,25 @@ namespace Taste.Areas.Identity.Pages.Account
                 ProviderDisplayName = info.ProviderDisplayName;
                 if (info.Principal.HasClaim(c => c.Type == ClaimTypes.Email))
                 {
-                    string[] fullName = info.Principal.FindFirstValue(ClaimTypes.Name).Split(' ');
-
-                    Input = new InputModel
+                    if (ClaimTypes.Name != null)
                     {
-                        Email = info.Principal.FindFirstValue(ClaimTypes.Email),
-                        FirstName = fullName[0],
-                        LastName = fullName[1]
-                    };
+                        string[] fullName = info.Principal.FindFirstValue(ClaimTypes.Name).Split(' ');
+
+                        Input = new InputModel
+                        {
+                            Email = info.Principal.FindFirstValue(ClaimTypes.Email),
+                            FirstName = fullName[0],
+                            LastName = fullName[1]
+                        };
+                    }
+                    else
+                    {
+                        Input = new InputModel
+                        {
+                            Email = info.Principal.FindFirstValue(ClaimTypes.Email)
+                        };
+                    }
+
                 }
                 return Page();
             }

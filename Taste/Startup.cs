@@ -67,6 +67,11 @@ namespace Taste
                 facebookOptions.AppId = "307407020855299";
                 facebookOptions.AppSecret = "1f7c2ea38707f1e5503ea6fc6e9643ae";
             });
+            services.AddAuthentication().AddMicrosoftAccount(options =>
+            {
+                options.ClientId = "8846ef05-59a3-4ec8-95f4-4b9c50a65d74";
+                options.ClientSecret = "jQB7Q~Sr1Ly2QSZXYbnJIIdyWxc5KFtrQRnjn";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
