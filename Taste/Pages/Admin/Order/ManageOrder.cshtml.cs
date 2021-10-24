@@ -9,6 +9,7 @@ using Taste.DataAccess.Data.Repository.IRepository;
 using Taste.Models.ViewModels;
 using Taste.Models;
 using Taste.Utility;
+using Stripe;
 
 namespace Taste.Pages.Admin.Order
 {
@@ -41,7 +42,6 @@ namespace Taste.Pages.Admin.Order
                 orderDetailsVM.Add(individual);
             }
         }
-        [HttpPost]
         public IActionResult OnPostOrderPrepare(int orderId)
         {
             OrderHeader orderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(o => o.Id == orderId);
@@ -50,7 +50,6 @@ namespace Taste.Pages.Admin.Order
             return RedirectToPage("ManageOrder");
 
         }
-        [HttpPost]
         public IActionResult OnPostOrderReady(int orderId)
         {
             OrderHeader orderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(o => o.Id == orderId);
@@ -59,7 +58,6 @@ namespace Taste.Pages.Admin.Order
             return RedirectToPage("ManageOrder");
 
         }
-        [HttpPost]
         public IActionResult OnPostOrderCancel(int orderId)
         {
             OrderHeader orderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(o => o.Id == orderId);
@@ -68,11 +66,17 @@ namespace Taste.Pages.Admin.Order
             return RedirectToPage("ManageOrder");
 
         }
-        [HttpPost]
         public IActionResult OnPostOrderRefund(int orderId)
         {
             OrderHeader orderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(o => o.Id == orderId);
-
+            var options = new RefundCreateOptions
+            {
+                Amount = Convert.ToInt32(orderHeader.OrderTotal*100),
+                Reason = RefundReasons.RequestedByCustomer,
+                Charge= orderHeader.TransactionId
+            };
+            var service = new RefundService();
+            Refund refund = service.Create(options);
             orderHeader.Status = SD.StatusRefunded;
             _unitOfWork.Save();
             return RedirectToPage("ManageOrder");
