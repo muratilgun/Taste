@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,7 @@ namespace Taste.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Get(string status = null)
         {
             List<OrderDetailsViewModel> orderListVM = new List<OrderDetailsViewModel>();
