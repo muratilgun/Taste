@@ -16,7 +16,6 @@ namespace Taste.Controllers
     [ApiController]
     public class OrderController : Controller
     {
-
         private readonly IUnitOfWork _unitOfWork;
 
         public OrderController(IUnitOfWork unitOfWork)
@@ -55,7 +54,7 @@ namespace Taste.Controllers
                 }
                 else
                 {
-                    OrderHeaderList = OrderHeaderList.Where(o => o.Status == SD.StatusReady || o.Status == SD.StatusInProcess || o.Status == SD.StatusSubmmitted || o.Status == SD.PaymentStatusPending);
+                    OrderHeaderList = OrderHeaderList.Where(o => o.Status == SD.StatusReady || o.Status == SD.StatusInProcess || o.Status == SD.StatusSubmitted || o.Status == SD.PaymentStatusPending);
                 }
             }
             foreach (OrderHeader item in OrderHeaderList)

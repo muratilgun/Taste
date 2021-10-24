@@ -117,7 +117,7 @@ namespace Taste.Pages.Customer.Cart
                 if (charge.Status.ToLower() == "succeeded")
                 {
                     detailCart.OrderHeader.PaymentStatus = SD.PaymentStatusApproved;
-                    detailCart.OrderHeader.Status = SD.StatusSubmmitted;
+                    detailCart.OrderHeader.Status = SD.StatusSubmitted;
                 }
                 else
                 {
