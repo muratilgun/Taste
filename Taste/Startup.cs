@@ -17,6 +17,7 @@ using Taste.DataAccess.Data.Repository;
 using Taste.DataAccess.Data.Repository.IRepository;
 using Taste.Utility;
 using Stripe;
+using Taste.DataAccess.Data.Initializer;
 
 namespace Taste
 {
@@ -41,6 +42,7 @@ namespace Taste
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddSingleton<IEmailSender, EmailSender>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IDbInitializer, DbInitializer>();
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(10);
@@ -73,10 +75,11 @@ namespace Taste
                 options.ClientId = "8846ef05-59a3-4ec8-95f4-4b9c50a65d74";
                 options.ClientSecret = "jQB7Q~Sr1Ly2QSZXYbnJIIdyWxc5KFtrQRnjn";
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDbInitializer dbInitializer)
         {
             if (env.IsDevelopment())
             {
@@ -93,7 +96,7 @@ namespace Taste
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSession();
-
+            dbInitializer.Initialize();
             app.UseRouting();
 
             app.UseAuthentication();
