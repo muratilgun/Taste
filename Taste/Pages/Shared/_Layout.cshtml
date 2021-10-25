@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Taste</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link href="~/css/site.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css"/>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
@@ -32,15 +32,15 @@
                         </li>
                         @if (User.IsInRole(SD.ManagerRole))
                         {
-                            <li class="nav-item dropdown">
-                                <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropDown" data-toggle="dropdown">
+                            <li class="nav-item dropdown" style="background-color: #007bff;">
+                                <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropDown" data-toggle="dropdown"  style="background-color: #007bff;">
                                     Admin
                                 </a>
-                                <div class="dropdown-menu" style="background-color: #007bff;">
-                                    <a class="dropdown-item text-white" asp-page="/Admin/Category/Index">Category</a>
-                                    <a class="dropdown-item text-white" asp-page="/Admin/FoodType/Index">Food Type</a>
-                                    <a class="dropdown-item text-white" asp-page="/Admin/MenuItem/Index">Menu Item</a>
-                                    <a class="dropdown-item text-white" asp-page="/Admin/User/Index">Users</a>
+                                <div class="dropdown-menu"  style="background-color: #007bff;">
+                                    <a class="dropdown-item text-white" style="background-color: #007bff;" asp-page="/Admin/Category/Index">Category</a>
+                                    <a class="dropdown-item text-white" style="background-color: #007bff;" asp-page="/Admin/FoodType/Index">Food Type</a>
+                                    <a class="dropdown-item text-white" style="background-color: #007bff;" asp-page="/Admin/MenuItem/Index">Menu Item</a>
+                                    <a class="dropdown-item text-white" style="background-color: #007bff;" asp-page="/Admin/User/Index">Users</a>
                                 </div>
                             </li>
                         }
@@ -57,13 +57,12 @@
                                 <a class="nav-link text-white" asp-page="/Admin/Order/OrderList">Order Pickup</a>
                             </li>
                         }
-                        @if (User.IsInRole(SD.ManagerRole) || User.IsInRole(SD.CustomerRole))
+                        @if (User.IsInRole(SD.CustomerRole))
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-white" asp-page="/Admin/Order/OrderList">Order History</a>
                             </li>
                         }
-
                         @if (HttpContextAccessor.HttpContext.Session.GetInt32(SD.ShoppingCart) != null)
                         {
                             <li>
